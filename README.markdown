@@ -58,7 +58,7 @@ Sounds too complicated? Git has been designed to keep track of large scale open 
 
 The first thing to do is to clone the repository. Open git, and navigate to a place in your home directory and run the command:
 
-    git clone https://github.com/QMUL/gitclass.git
+    git clone https://github.com/sdangelis/gitclass
 
 You should see a directory appear called gitclass that has all the files you need to get started
 
@@ -112,7 +112,7 @@ Before we can commit however, we need to create our own copy of this repository 
 
 ### Fork the repository on github
 
-We now have a clone of the master repository, but it's time to create your own copy on github.com. Login to github.com and navigate to [https://github.com/QMUL/gitclass](https://github.com/QMUL/gitclass). At the top right of the page you should see a button labelled *fork*. Press this and fork your own repository.
+We now have a clone of the master repository, but it's time to create your own copy on github.com. Login to github.com and navigate to [https://github.com/sdangelis/gitclass](https://github.com/sdangelis/gitclass). At the top right of the page you should see a button labelled *fork*. Press this and fork your own repository.
 
 ## git remote
 
