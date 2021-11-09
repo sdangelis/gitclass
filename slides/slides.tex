@@ -5,36 +5,35 @@
 
 \title[git]
 {A short introduction to version control with Git}
-\subtitle{Git - You'll never learn it all!}
-\author[Blundell]
-{Benjamin ~Blundell\inst{1}}
-\institute[ITS Research, QMUL]
+\subtitle{Git, learn most of it }
+\author[De Angelisll]
+{Simone ~De Agelis\inst{1}}
+\institute[Barts Cancer Institute, QMUL]
 {
   \inst{1}
-  ITS Research\\
+  Barts Cancer Institute\\
   Queen Mary University of London
  }
-\date[2016]
-{CIS Software Engineering Day, 2016}
+\date[2021]
+{Bioinformatics cafe, 2021}
 \subject{Computer Science}
 
 % Slides
 % Title
 \frame{\titlepage}
 
-
 % Introduction
 \begin{frame}
   \frametitle{Introduction}
   
-  \begin{block}{Me}
+  \begin{block}{The Bioinformatics cafe}
     \begin{itemize}  
-      \item b.blundell@qmul.ac.uk 
-      \item ITS Research - writing programs for scientists and artists.
-      \item Helping people with their HPC problems.
-      \item Previously ran small company building graphics-type things
-      \item I write stuff at www.section9.co.uk
-      \item I use Git everyday
+      \item Open to everybody with an interset in bioinformatics. from post-docs in computational labs to wet-lab students insterested in knowing more about bioinformatics
+      \item For our purposes bioinformatics includes modelling/computationa biology 
+      \item We meet each Tuesday 4-5pm in the seminar room
+      \item Email me to join our maling list
+      \item or Slack workspace
+      \item simone.deangelis@qmul.ac.uk 
     \end{itemize}
   \end{block}
 
@@ -43,27 +42,20 @@
 
 % What is it?
 \begin{frame}
-  \frametitle{What is it?}
+  \frametitle{What is git?}
 
   \begin{block}{What is git?}
     \begin{itemize}  
-      \item Version control system developed for the Linux Kernel. 
-      \item Distributed as opposed to centralised.
-      \item A suite of many, many small tools.
+      \item Version control system 
+      \item Designed to track code changes in complex, collaborative projects
+      \item Very valuable to track the state of smaller problems 
+      \item can roll back to an earlier verion when we break something
     \end{itemize}
   \end{block}
-
-  \begin{block}{What is github?}
-    \begin{itemize}  
-      \item Git, but on the internets.
-      \item User-friendly interface including visualisations.
-      \item A social network of sorts.
-    \end{itemize}
-  \end{block}
-
 \end{frame}
 
-% Why?
+% Why git 
+
 \begin{frame}
   \frametitle{How will Git help me right now?}
 
@@ -72,81 +64,140 @@
       \item Backing up your work.
       \item Undo-ing changes you've made.
       \item Sharing work with others.
+      \item No more need to email code with successive renaming.
+      \item Automatic handling of line endings between Windows and Mac/Linux.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% Git vs Githunb
+\begin{frame}
+
+  \begin{block}{What is github?}
+    \begin{itemize}  
+      \item like Git, but on the internet.
+      \item User-friendly interface including visualisations.
+      \item A social network of sorts.
     \end{itemize}
   \end{block}
 
   \begin{block}{Advantages to github}
     \begin{itemize}  
-      \item Collaboration (showing off?).
-      \item Off-site backup of code.
-      \item Public accountability.
+      \item Collaboration
+      \item Share code with reviewers/readers
+      \item Off-site backup of code..
       \item Open-source contribution.
-      \item A place to put all my slides so you can get them easily.
     \end{itemize}
   \end{block}
 
 \end{frame}
 
-% Resources
+
+% github vs github entreprise
 \begin{frame}
-  \frametitle{Resources}
+  \frametitle{How will Git help me right now?}
 
-  \begin{block}{Reference material}
-    \begin{itemize}
-      \item https://git-scm.com/doc
-      \item https://git-scm.com/book/en/v2
-      \item man pages for git
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Tutorials}
+  \begin{block}{github.com}
     \begin{itemize}  
-      \item https://try.github.io/
-      \item http://gitreal.codeschool.com/
+      \item Open to the whole world 
+      \item Public repositories are visible to everybody 
+      \item Free but private repositiories require a premium plan
     \end{itemize}
   \end{block}
 
-  \begin{block}{Software}
-   \begin{itemize}  
-      \item Git for Windows.
-      \item TortoiseGit.
-      \item Git is built into Visual Studio and others.
+  \begin{block}{Advantages to github}
+    \begin{itemize}  
+      \item Fully managed by QMUL 
+      \item Suppported by QMUL RITS 
+      \item Unlimited private repositories 
+      \item Public repositories 
+      \item Free core service
     \end{itemize}
-
   \end{block}
+
 \end{frame}
 
 
-% Basic Commands
+% Basics
 \begin{frame}[fragile]
   \frametitle{Lets begin (0)}
 
-  \begin{lstlisting}[caption=setup git for windows] 
-  L:\Git-2.6.4-32-bit\git-bash.exe
-  git config --global http.sslverify "false"
-  \end{lstlisting}
-
- \begin{block}{Git for Windows}
+ \begin{block}{Git workflow}
    \begin{itemize}  
-      \item Git for Windows is but one version of git
+      \item Basic operations in git
+      \item we'll see the idea behind it,then apply in the tutorial
       \item Same commands on Linux and MacOS
     \end{itemize}
   \end{block}
 
+\end{frame}
+
+% Repositories 
+\begin{frame}[fragile]
+  \frametitle{repositories}
+
+ \begin{block}{repositories are the basic units of git}
+   \begin{itemize}  
+      \item A folder to contain our files in
+      \item Each repository can point to multiple remote locations (be it github.com or another disk)
+      \item Git is distributed: each copy has the full history up to that point 
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+% tree
+\begin{frame}[fragile]
+  \frametitle{git follows a tree}
+
+ \begin{block}{Git workflow}
+   \begin{itemize}  
+      \item Our root is the first commit
+      \item We can add changes on the same branch or diverge to form another branch
+      \item We tell git what changes to record and where 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{git follows a tree}
+
+  \begin{block}{a nice, smple tree}
+    \includegraphics[height=5cm]{git_tree1.png}
+  \end{block}
+
+\end{frame}
+
+% tree 2 
+\begin{frame}[fragile]
+  \frametitle{more complex tree}
+
+  \begin{block}{A more complex tree}
+    \includegraphics[height=5cm]{git_tree2.png}
+  \end{block}
+
+\end{frame}
+
+%confused?
+\begin{frame}[fragile]
+  \frametitle{so far so good?}
+
+  \begin{block}{Yes, we've all been there too}
+    \includegraphics[height=5cm]{xkcd.png}
+  \end{block}
 
 \end{frame}
 
 
-% Basic Commands
-\begin{frame}[fragile]
-  \frametitle{Lets begin (1)}
 
-  \begin{lstlisting}[caption=clone a repository] 
-  git clone https://github.com/QMUL/gitclass.git
-  git status
+% let's start
+\begin{frame}[fragile]
+  \frametitle{Let's begin (1)}
+  \begin{lstlisting}[caption=we can clone a repository from somewhere] 
+  git clone <repository>
   \end{lstlisting}
 
-  \begin{lstlisting}[caption=create a new repository] 
+  \begin{lstlisting}[caption=or create a new repository] 
   git init 
   \end{lstlisting}
 
@@ -287,10 +338,6 @@
     \end{itemize}
   \end{block}
 
-  \begin{block}{Pointers}
-    \includegraphics[height=3cm]{branch-and-history.png}
-  \end{block}
-
 
 \end{frame}
 
@@ -316,10 +363,6 @@
       \item Can 'branch off' from the main codebase to test things.
       \item Can merge back at a later date. Everything recorded.
     \end{itemize}
-  \end{block}
-
-  \begin{block}{master and testing branches}
-    \includegraphics[height=3cm]{advance-master.png}
   \end{block}
 
 

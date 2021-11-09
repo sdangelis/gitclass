@@ -1,20 +1,28 @@
-A set of GIT exercises for the QMUL CIS Software Workshop.
+A quick introduction to Git/Github, delivered as part of the BCI bioinformatics Cafe
 
 # Overview
 
 The goal is to learn the basic Git commands and understand how it can help you write better software.
 
-This class is split into two parts. In the first section, you can work individually. In the second section, you'll need to work in a group.
+This class is split into two parts. In the first section, I'll quickly introduce Git and Github. In the second section, we'll work through some examples.
 
-Rather than work on a program, we've decided to go with a more artistic, esoteric approach - combining lines of Shakespeare with contemporary Rap and Hip-Hop lyrics to create something new. 
+Rather than work on a program, we've decided to go with a more artistic, esoteric approach - combining lines of Shakespeare with contemporary Rap and Hip-Hop lyrics to create something new.
+
+Indeed, Git powers extend beyond traditional programming and as long as your files are text files git is a pretty good way to track them.
+
+A notable exception is tabular data, while git can store it, it will not be extremely effective at doing so. And remember Office files and pdfs are not technically text files.
 
 # Resources and other options
 
-There are many ways to get help, and many great tutorials out there. We don't insist you follow this tutorial, although we'd like it if you did. Others we recommend include:
+There are many ways to get help, and many great tutorials out there
 
-* [https://try.github.io/](https://try.github.io/) - Probably the best one out there, in my opinion.
-* [https://guides.github.com/activities/hello-world/](https://guides.github.com/activities/hello-world/) - A little simple and github focused but not too bad. 
+* [https://try.github.io/](https://try.github.io/) - Probably the best one out there.
+* [https://guides.github.com/activities/hello-world/](https://guides.github.com/activities/hello-world/) - A little simple and github focused
 * [http://gitreal.codeschool.com/](http://gitreal.codeschool.com/) - Another tutorial.
+* [Git Flight rules](https://github.com/k88hudson/git-flight-rules) **We all** get stuck with so Git at some point, so this is a collection of
+  quick guides to solve specific git issues. **Highly recommended**
+* [https://explainshell.com/](https://explainshell.com/) While we'll print some help information with `--help` the help pages of command line tools can quickly get overwhelming. Explainshell
+attempts to explain only the options (aka flags) you're currently using.
 
 ## git scm book
 
@@ -23,39 +31,49 @@ This deserves it's own section, as the material is excellent. I refer to this pa
 * [https://git-scm.com/doc](https://git-scm.com/doc)
 * [https://git-scm.com/book/en/v2](https://git-scm.com/book/en/v2)
 
+# Set Up
 
-# Exercises
-
-Please begin with part 1 and if you feel comfortable, you can move on to part 2.
-
-## Part 0
-
-Make sure you have a good text editor available, that you are comfortable with. You will need to understand basic bash commands like cp, ls, touch, rm and similar.
+Make sure you have a good text editor available, if you don't have a preference [VS Code](code) is free and a solid choice  that works on Windows, Macs and Linux
 
 You should also create a [http://github.com](github.com) account if you don't have one.
 
-Using the college machines, you will find git-bash and git-cmd on the '''L:''' drive here:
+You should also install git on your machine, see [here] for a guide.
 
-    L:\Git-2.6.4-32-bit
+**NOTE**: git is the command line version control tool, Github is both a server where you can store git repositories and web interface on top of git.  
+This means that you have a copy of every modification you made to your repository both on your machine and online, so it can be easily shared with others.
 
-Using git-bash, you should run the following command before all others
+**Another note**, while GitHub is arguably the most popular git hosting service GitHub is not the only website to do so.
 
-    git config --global http.sslverify "false"
+# Anatomy of git
 
-This is a temporary work around '''and should not be used in production'''.
+In git terminology a repository is a directory containing all the text to keep track of
+The central idea of git is that changes are organized according to a tree, with the root being the beginning of your repository history and a series of branches extending from it.
+However, unlike a real tree branches can fuse back with the trunk or change the point at which they diverge.
 
+Sounds too complicated? Git has been designed to keep track of large scale open source projects and often has many ways to do similar but slightly different changes. In reality you can get a lot out of it from using a small subset of its features in your projects.
 
-## Part 1
+# Part 1: The basics
 
-### git clone
+## git clone
 
-The first thing to do is to clone the repository. Navigate to a place in your home directory and run the command:
+The first thing to do is to clone the repository. Open git, and navigate to a place in your home directory and run the command:
 
     git clone https://github.com/QMUL/gitclass.git
 
 You should see a directory appear called gitclass that has all the files you need to get started
 
-### git status
+## git pull 
+
+Cloning the repository downloads the entire content to your computer. We 
+only need to do this once.
+
+To update our copy we run the command:
+
+    git pull 
+
+This only gets the new changes (and automatically checks if we have conflicting changes - see Part2)
+
+## git status
 
 Run the following command from inside the gitclass directory:
 
@@ -63,48 +81,46 @@ Run the following command from inside the gitclass directory:
 
 Git should print out the status of all the files in the current directory - whether they are being tracked, if they've been modified and other useful information.
 
-This command is very useful when you are making changes and you want to see what needs to be saved and what doesn't.
+This command is very useful when you are making changes and you want to see what needs to be saved and what doesn't
 
-### Create a new file
+## Create a new file
 
-Now, we can start with our new lyrical masterpiece, be it a song, poem or just something that sounds funny. Using your favourite text editor, create a file named something like *myfirstpoem.txt* or similar. Take a look at the two files, *shakespeare_corpus.txt* and *rap_lyrics_corpus.txt*. Select a few lines from each (say 5 to 10) and come up with something new.
+Now, we can start with our new lyrical masterpiece, be it a song, poem or just something that sounds funny. Using a , create a file named something like *myfirstpoem.txt* or similar. Take a look at the two files, *shakespeare_corpus.txt* and *rap_lyrics_corpus.txt*. Select a few lines from each (say 5 to 10) and come up with something new.
 
+## Staging
 
-### git add
+By default git status keeps an eye on the current modifications for all files in your repository but does not keep an history for them. 
+To add a file to git's history you must manually add files to the so-called staging area.
+Think of the staging process as calling actors to the wings of the theatre. they are ready to go but are not on stage yet.
 
-Now we can add your new file to the repository. You can, if you like, run *git status* to see the status of your new file. We should add this file, so it is *tracked*  or *staged* within the git system. Run the command:
+## git add
+
+Now we can add your new file to the staging area. You can, if you like, run `git status` to see the status of your new file. We should add this file, so it is `tracked`  or `staged` within the git system. Run the command
 
     git add <MYFILENAME>
 
-... replacing *<MYFILENAME>* with the actual filename.
+**Note**: replace `<MYFILENAME>` with the actual filename. In general when you see `<VALUE>` in coding documentation you should replace it with the appropriate value, without `<>`.  
+i.e `hello <NAME>` becomes `hello Simone`
 
-Run *git status* again and you should see that it is now tracked. 
+Run `git status` again and you should see that it is now tracking the new file.
 
+## Committing
 
-### git diff
+Once we are done adding files to the staging area we can commit our changes. This creates a snapshot of the repository, a note in the history of your project about the content of the staged files at that timepoint.
 
-Sometimes, we'd like to see the differences between various commits before we decide to incorporate them. Lets run the following command:
-
-    git diff --staged
-
-You should see that your new file has been *staged*, which means it will be added in the next commit.
-
-We can remove this change from any future commits with
-    git reset <MYFILENAME>
-
-... which means *unstage* this file.
+Before we can commit however, we need to create our own copy of this repository on github.com because while have read access to the public repository we cannot automatically write to it - but we can copy it and write our own copy, and then ask the original author to merge it.
 
 ### Fork the repository on github
 
 We now have a clone of the master repository, but it's time to create your own copy on github.com. Login to github.com and navigate to [https://github.com/QMUL/gitclass](https://github.com/QMUL/gitclass). At the top right of the page you should see a button labelled *fork*. Press this and fork your own repository.
 
-### git remote
+## git remote
 
 The command *git remote* shows you the various remote repositories linked to this one. These repositories can be anywhere, not just on github.com but for now, that's the place we'll use. We need to add the repository you just forked as a new remote. Run the command:
 
-    git remote add cis <address>
+    git remote add origin <address>
 
-You will need to replace *<address>* with the github.com address of the repository you forked in the previous step. You can find this out by navigating to your forked repository and taking a look at the *ssh* text box at the top of the page. It will look something like this:
+You will need to replace `<address>` with the github.com address of the repository you forked in the previous step. You can find this out by navigating to your forked repository and taking a look at the `ssh` text box at the top of the page. It will look something like this:
 
     git@github.com:MYUSERNAME/gitclass.git 
 
@@ -114,19 +130,20 @@ If you make a mistake, run the command:
 
 This will show you the commands needed to remove a remote and start again.
 
-### git commit
+## git commit
 
-Possibly one of the most useful and often used commands, *git commit* creates a snapshot of the repository, a note in the history of your project. Run the following command
+Possibly one of the most useful and often used commands as it creates a commit.
 
-    git commit --help
+    git commit --help 
 
-You should see all the variations of the git commit command and what all the various switches mean. For the most part however, we will use the following:
+ For the most part however, we will use the following:
 
     git commit -a -m "<MY MESSAGE>"
 
-The *-a* flag is quite special. This means that all the changes that have occurred should be added to this commit. The term is *staging* and it's something we will return to. It is possible for a file to have changed but you don't want to add these changes to the commit you are about to make. For now though, we will use this flag to submit *all* changes.
+The `-a` flag is quite special.  
+It is effectively a shorthand to stage all tracked files and commit in one go.
 
-#### before the commit can take place
+### before the commit can take place
 
 When you first commit something, you may be asked to setup a name and email address with git. This is so commits can be tied to a particular user. Git will warn you about this and offer the following solution
 
@@ -135,12 +152,34 @@ When you first commit something, you may be asked to setup a name and email addr
 
 The quotes are important. Simply follow the onscreen instructions and then re-try the commit.
 
+### commit messages
 
-#### commit messages
+Before we actually commit, we should take a short time to talk about commit messages. Take a look at this: [https://xkcd.com/1296/](https://xkcd.com/1296/). This sums up what developers often do when the commit to repositories. Please don't do this sort of thing. Commit message are quite useful and although you don't want to be too long winded, do please try and write useful comments. make your comments meaningful!
 
-Before we actually commit, we should take a short time to talk about commit messages. Take a look at this: [https://xkcd.com/1296/](https://xkcd.com/1296/). This sums up what developers often do when the commit to repositories. Please don't do this sort of thing. Commit message are quite useful and although you don't want to be too long winded, do please try and write useful comments. In our example, it might be somewhat difficult as we aren't writing code, but in general, make your comments meaningful.
+### commit messages and Vim
 
-#### Perform a commit
+So far we have provided git commit messages from the command line. This is fine for short comments.  we can ask git to open a text editor by simply omitting the `-m "<message>"`  part
+
+    git commit
+
+On many systems this will open vi/vim. Vim is an amazing text editor but has a steep learning curve.
+
+to save you some time:
+vim uses `h`, `j`, `k`, `l` to move left, down, up and right.  
+You can often get away with using the arrow keys instead.  
+You press `i` to insert text, and `esc` to quit the inserting mode.  
+To quit vim type `:q` if you made no changes, `:x` if you made some changes you'd like to save and `:q!` if you made changes but you'd like to quit **without** saving.  
+
+#### verbose git commits  
+
+Sometimes we might forget what changes we have committed,
+we can ask git to add a list of all modifications with the `-v` flag.
+
+    git commit -v 
+
+**NOTE**: the modifications will appear at the bottom of the code editor window but **will not actually be part of the commit message**. Git tracks changes anyway and there is not need to specify them all in the commit message
+
+## Performing the  commit
 
 We are ready to perform our commit. Run the command:
 
@@ -148,45 +187,37 @@ We are ready to perform our commit. Run the command:
 
 You will see some output that reflects the changes you have made to the repository. If all has gone well, you will a success message. If it does not, it's probably because you have a conflict or similar.
 
-### git push 
+## git push
 
-We are ready to send our changes somewhere other than our local machine. Run the comamnd:
+We are ready to send our changes somewhere other than our local machine. Run the command:
 
-    git push cis master
-
-This command has two parts. The first part *cis* refers to the name of the remote we want to push to. The word *master* refers to the branch we want to send to the remote.
+    git push 
 
 If all goes well, you should see a success message. Navigate to your github.com page and you should see your file has appeared with the commit message you set.
 
+try running the diff command again 
 
-### git diff (again)
+    git diff 
 
-Run this command
-
-    git diff
-
-It should show you the changes that have just taken place, between this commit and the list. Handy!
-
-
-### Take a break
+# Part 2: More git
 
 Excellent! You've managed to commit things and send things to other places. This means you know how to backup your code and keep track of the changes you've made. This is one of the most powerful and useful features of git.
 
-### git log
+## git log 
 
 Lets take a quick look at what we've done so far. Run the command:
 
     git log
 
-You should see a list of commits, with their unique ID numbers and the messages you have written. Press *q* to quit.
+You should see a list of commits, with their unique ID numbers and the messages you have written. Press `q` to quit.
 
-### git rm
+## git rm
 
 Let us suppose you are not a fan of the prose you have just written. Let's delete it. Run the command:
 
     git rm <YOURFILENAME>
 
-... replacing *<YOURFILENAME>* with the name of your file.
+replacing `<YOURFILENAME>` with the name of your file.
 
 git will now delete the file in the next commit, removing it for future commits. Run the command
 
@@ -194,14 +225,13 @@ git will now delete the file in the next commit, removing it for future commits.
 
 You have now made a new commit with the file removed
 
-### pointers
+## pointers
 
-We should talk about pointers, in particular the *HEAD* pointer. This pointer is sort-of-like the default. You can typically think of this as 'which commit am I working on right now'. We will need this in our next example.
+We should talk about pointers, in particular the *HEAD* pointer. This pointer is sort-of-like the default location. You can typically think of this as 'which commit am I working on right now'. We will need this in our next example.
 
+## git reset
 
-### git reset
-
-The command *git reset* has many uses, but as it's name suggests, it resets various things in git to their previous state. Let's pretend we really did want that file we deleted after-all. How can we undo what we just did? 
+The command `git reset` has many uses, but as it's name suggests, it resets various things in git to their previous state. Let's pretend we really did want that file we deleted after-all. How can we undo what we just did?
 
 We can use the following command:
 
@@ -209,9 +239,9 @@ We can use the following command:
 
 **WARNING** this command will trash data and delete things potentially, so use it lightly!
 
-Lets break that command down a little bit. The *--hard* flag means *really set everything back. delete, rename, do what you have to*. This means if you just created a new file it will be deleted when we *roll-back* so be careful.
+Lets break that command down a little bit. The `--hard` flag means *really set everything back. delete, rename, do what you have to*. This means if you just created a new file it will be deleted when we *roll-back* so be careful.
 
-The *HEAD~1* statement means *one commit before this one*. You can, if you prefer, replace this with the actual commit id instead, which you can find with *git log*
+The `HEAD~1` statement means *one commit before this one*. You can, if you prefer, replace this with the actual commit id instead, which you can find with `git log`.
 
 Run the command and see what happens. Your file should now have appeared and we have effectively, gone back in time, wiping out that commit we just made.
 
@@ -219,30 +249,45 @@ Another use case for reset might look like this. Say, you are working on a commi
 
     git reset --hard HEAD
 
-We are resetting to the beginning of the current commit we are working on. This is a destructive but useful command if you want to just forgot the mistakes you may have made. Combined with the *branch* feature, this is an excellent way to test and try-out new features.
+We are resetting to the beginning of the current commit we are working on. This is a destructive but useful command if you want to just forgot the mistakes you may have made. Combined with the `branch` feature, this is an excellent way to test and try-out new features.
 
+Reset will change all the files in the repository. Arguably more useful is the ability to reset specific files to an earlier version. Git
 
-### git branch
+Git checkout can do that.
 
-It's time to introduce one of the most used, and most powerful features of git, *branching*. Branching does exactly what it sounds like. If you imagine your commit history as a totally linear narrative, you'd get a straight line, each commit pointing to the last. A branch creates a fork in that line, splitting into two different paths.
+    git checkout HEAD -- <YOURFILE> 
+
+The rules around the HEAD pointer are the same as before, so this command is equivalent of
+
+    git reset --hard HEAD 
+
+for your file.
+Try changing a file and use checkout to revert to `head~1`
+
+    git checkout HEAD~1 -- <YOURFILE> 
+
+## git branch
+
+It's time to introduce one of the most used, and most powerful features of git, branching. Branching does exactly what it sounds like. If you imagine your commit history as a totally linear narrative, you'd get a straight line, each commit pointing to the last. A branch creates a fork in that line, splitting into two different paths.
 
 Run the following command:
 
     git branch morespeare
 
-This creates a new branch that forks at the current *HEAD* pointer. If you type the following command...
+This creates a new branch that forks at the current *HEAD* pointer. If you type the following command
 
     git branch
 
-... you should see that the branch has been added but you are still on the *master* branch.
+you should see that the branch has been added but you are still on the `master` branch.  
+**NOTE**: the term `master` is not very inclusive so the term `main` is now the default term for the main branch in a repository.
 
-### git checkout
+### git checkout (branches)
 
-Checkout is an odd command (I find) but what it does is effectively move you to a new branch or working tree. So lets do that:
+Checkout is a somewhat cryptic but it also moves you to a new branch or working tree. So lets do that:
 
     git checkout morespeare
 
-Try running...
+Try running
 
     git branch
 
@@ -250,15 +295,15 @@ You should see that you are now on the *morespeare branch* - your next commit wi
 
 ### Add some more shakespeare
 
-For arguments sake, lets alter the shakespeare corpus and add some more extracts to our list. Navigate to [Project Gutenberg](https://archive.org/details/gutenberg?and[]=shakespeare) and take a look at all the text files they have. Pick one of them (I'm a fan of the tragedies but you might like the sonnets?) and add the text you like to the *shakespeare_corpus.txt* file.
+For arguments sake, lets alter the Shakespeare corpus and add some more extracts to our list. Navigate to [Project Gutenberg](https://archive.org/details/gutenberg?and[]=shakespeare) and take a look at all the text files they have. Pick one of them  and add the text you like to the *shakespeare_corpus.txt* file.
 
 Lets commit out changes. Run a command like this one:
 
     git commit -a -m "Added more shakespeare to use"
 
-We can make whatever changes we like on this branch, without affecting the master branch. 
+We can make whatever changes we like on this branch, without affecting the master branch.
 
-### git merge
+## git merge
 
 Lets switch back to our master branch.
 
@@ -270,16 +315,15 @@ We are back to where we were before. Let us suppose we are happy with the change
 
 You should see a message saying the *shakespeare_corpus.txt* file was updated. This will cause a new commit to be created.
 
-#### conflicts
+## conflicts
 
-This is the real heart of version control in software engineering. What to do when things don't match up. Our above case is very simple, but sometimes you might see this:
+This is the real heart of version control. What to do when things don't match up. Our above case is very simple, but sometimes you might see this:
 
     Auto-merging shakespeare_corpus.txt
     CONFLICT (content): Merge conflict in shakespeare_corpus.txt
     Automatic merge failed; fix conflicts and then commit the result.
 
 If this happens, the file in question will contain portions of *both* sides and you'll need to decide which of the changes you want to keep. If you look at the file, typically, you'll see something like this:
-
 
     <<<<<<< HEAD:index.html
     <div id="footer">contact : email.support@github.com</div>
@@ -289,7 +333,11 @@ If this happens, the file in question will contain portions of *both* sides and 
     </div>
     >>>>>>> iss53:index.html
 
-This example is taken from [https://www.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging](https://www.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) and is unrelated to this project. However, it illustrates the point. There are two versions of the same set of lines in the file *index.html*. The current *HEAD* pointer is given first, and another commit from another branch called *iss53* is also shown. In such a case you must remove all the <, > and = signs and leave just the code you want. For example, if I wanted to accept the iss53 change I'd end up with this: 
+This example is taken from [https://www.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging](https://www.git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) and is unrelated to this project. However, it illustrates the point.  
+
+There are two versions of the same set of lines in the file `index.html`. The current `HEAD` pointer is given first, and another commit from another branch called `iss53` is also shown.
+
+In such a case you must remove all the <, > and = signs and leave just the code you want. For example, if I wanted to accept the iss53 change I'd end up with this:
 
     <div id="footer">
     please contact us at support@github.com
@@ -299,86 +347,100 @@ Once we've made resolved this conflict we can use:
 
     git add <FILENAME>
 
-... to stage the file for commiting.
+to stage the file for commiting and
 
-### Take a break and find some friends
+    git commit -m "merging branch <BRANCH>" 
 
-Part two of this couse will require some cross collaboration and is a little more freeform. We shall work with other people's repositories and create a rich tangle and weave of commits, in the hope's that some interesting lyrics might evolve. Try and find a couple of other people you might want to collaborate with, then move on to the next section.
+to  commit it.
 
-## Part 2
+# Part 3: More complex histories
 
-In this final section, we will start to merge our words with these written by other people, through github.com. There will be a list published of the usernames of your classmates. Using these, you can find other works you might like and start to mix and match.
+In this optional section we'll deal with two more commands that can be very useful for more complex histories. We likely won't have time to do this in the session.
 
-### Search Github.com and clone
+## Rebasing
 
-Firstly, search through the list of other users, looking for their *gitclass* repositories. Find one you like and then clone it as before but with *one important change*
+Suppose we switch back to the master branch with
 
-    git clone https://github.com/<username>/gitclass.git A_DIFFERENT_NAME
+    git checkout master
 
-Replace *A_DIFFERENT_NAME* with something like gitclass_jane or gitclass_nice. This way, you won't overwrite the one you have.
+and add a further modification to our files. Our `morespace` branch is now behind the main branch by 1 commit. If we keep doing this eventually our branch will increasingly out of sync with the main branch.
 
-### Working with a clone for inspiration
+We can use git rebase to change the origin point of our branch and incorporate changes from the specified branch with.
 
-If you've cloned someone else's repository, you have a clone of *their fork* of the original repository. You can make changes to their work, or take a copy of some lines and place them in your own work.
+    git rebase head <morespace>
 
-Although their is a *common ancestor* of your repository and theirs, combining the work is quite difficult as we are using github to organise our separate repositories.
+Rebasing erases part of your repository history and there is no undo. Another alternative is to merge the changes from the  main branch into your second branch with
 
-### Pull and resolve conflicts
+    git checkout <morespace> 
+    git merge main
 
-Rather than use a clone, it is possible to pull directly from one person's repository and merge with your own. This is definitely worth trying. Go into your repostitory directory and run the following:
+Whether rebasing is more appropriate than merging is debeable and controversial see  [this Stack overflow thread](https://stackoverflow.com/questions/457927/git-workflow-and-rebase-vs-merge-questions)
 
-   git pull https://github.com/<username>/gitclass.git
+## git stash
 
-This will pull down the changes and attempt to merge with your repository. You may find you have conflicts and things to change and delete.
+Sometimes merging and pulling will result in conflicting changes to modified but not committed files. 
+By default git will gives a warning and refuse to override our changes.
+We have already seen we can use reset/checkout to discard all  modifications or commit to force a merge with conflicts we can resolve.
 
-Go through each file, removing any conflicts and keeping or deleting the bits you want from your friend's repository. You now have a repository, or rather a commit, that has two direct ancestors. You can check this in the git log, or by pushing your changes to github and looking at the commit graph. In fact, lets do that:
+But what if we don't want to commit to changes or get rid of them? git can `stash` them for later use. Stashed files don't get pushed.
 
-    git push cis master
+we can ask git to stash all staged and unstaged files with
 
+    git stash 
 
-### Working with a fork as a critic.
+we can see what we have in the stash with
 
-Lets suppose we are being a critic and we have a suggestion to make. Typically, in a shared git setup, we could:
+     git stash list
 
- * branch off into a patch branch
- * make the changes we think are best
- * submit a patch or diff for review
- * If the review is accepted, the original owner can merge your changes.
+The stash is saved as a stack. (i.e the last item added is the first in the list). We can access it in two ways
 
-github has a similar method, known as pull requests. When you fork a repository, you can make changes on your local machine, push these changes to *your fork* and then create a *pull request*.
+### Pop
 
-Both your fork and your friend's fork have a common ancestor and therefore, can be considered to be variants of the same project. This is good for us. If you've followed the previous exercise, you should have made some changes to your epic poem. Now, try making some changes to your friend's file. 
+pop will remove the change from the stash and apply to the current files
 
-Once you've made chanages you should commit and then push to github:
+    git stash pop stash@{1}
 
-    git commit -a -m "Made a few editorial changes I think you will like"
-    git push cis master
+**NOTE**: `@` is a shorthand for `HEAD`
 
-Now, navigate to github.com and find your friend's repository again. You should see a big green button called *New pull request*. Press this and you'll be taken to the pull request page. At the top you should see drop down menu items referring to the two versions you want to merge. Select yours and your friend's and hit *Create pull request*. Your friend will now have this request waiting. It's up to them if they accept it or not.
+### Apply
+
+apply will apply the changes without removing them
+
+    git stash apply stash@{1}
+
+### clearing the stash
+
+unless we popped all the items, we manually need to clean the stash, to do so we do:
+
+    git stash clear
 
 # Lets review  
 
-We've looked at a lot in this course, both git and it's web friendly version - github.com. You'll likely come across one or both of these if you program for long enough. We've covered:
+We've looked at a lot of things. It's normal to feel somewhat overwhelmed at this point. So far we've covered:
 
- * Creating and cloning repositories
- * Staging files
- * Committing changes
- * Pushing and pulling from remotes
- * Undoing changes
- * Logs
- * Conflicts
- * Branching
- * github's forking and pull requests
+* Creating and cloning repositories
+* Staging files
+* Committing changes
+* Pushing and pulling from remotes
+* Undoing changes
+* Logs
+* Conflicts
+* Branching
+* Rebasing
+* Stashing
 
-These are some of the basics and you'll likely use these commands more than any others. However, there are many more ways of using commands and in the final lecture, we'll cover some of these, specifically the following:
+You might have noticed we have not looked much at github.com.
+It is comparatively easier to learn how to make the most of GitHub with a foundation of git
+than the other way around
 
- * Stashing
- * Rebasing
- * Tagging
- * Using diffs
+There are also many more ways of using git, please see the tutorials linked to hear more.
 
 # Credits
 
 Inspired by [http://poly-graph.co/vocabulary.html](http://poly-graph.co/vocabulary.html).
 
-All Shakespeare snippets are taken from Project Gutenberg. All rap lyrics are taken from Rap Genius.
+All Shakespeare snippets are taken from Project Gutenberg. All rap lyrics 
+are taken from Rap Genius.
+
+As the git history shows, this material is directly forked and adapted from a series of exercises developed for the 2016 QMUL CIS Software Workshop,
+like its source material, this version is released under the GPL-3.0 license.
