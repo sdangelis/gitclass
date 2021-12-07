@@ -116,19 +116,26 @@ We now have a clone of the master repository, but it's time to create your own c
 
 ## git remote
 
-The command *git remote* shows you the various remote repositories linked to this one. These repositories can be anywhere, not just on github.com but for now, that's the place we'll use. We need to add the repository you just forked as a new remote. Run the command:
+The command *git remote* shows you the various remote repositories linked to this one. These repositories can be anywhere, not just on github.com but for now, that's the place we'll use. 
+
+If you have created a git repository from scratch i.e with `git init`, you can link to a remote repository with
 
     git remote add origin <address>
 
-You will need to replace `<address>` with the github.com address of the repository you forked in the previous step. You can find this out by navigating to your forked repository and taking a look at the `ssh` text box at the top of the page. It will look something like this:
+You will need to replace `<address>` with the github.com address of the new repository.
+In our case, we are changing the remote so we need to use  
 
-    git@github.com:MYUSERNAME/gitclass.git 
+  git remote set-url origin <address>
+
+The address is the link to your fork of the class repository we created in the previous step. You can find this out by navigating to your forked repository and taking a look at the `https` text box at the top of the page. It will look something like this:
+
+    https://github.com:MYUSERNAME/gitclass.git 
 
 If you make a mistake, run the command:
 
     git remote --help
 
-This will show you the commands needed to remove a remote and start again.
+This will show you the commands needed to remove the remote and start again.
 
 ## git commit
 
